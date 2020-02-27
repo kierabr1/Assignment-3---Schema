@@ -21,6 +21,10 @@ def boats_who(conn, sailors_n):
 def dates_who(conn, s_date):
     return execute(conn, f"SELECT s.sid, s.name FROM Sailors AS s INNER JOIN Voyages ON s.sid=Voyages.sid WHERE Voyages.date_of_voyage='{s_date}'")
 
+def colors_who(conn, s_color):
+    return execute(conn, f"SELECT s.sid, s.name FROM Sailors AS s INNER JOIN Voyages ON s.sid=Voyages.sid INNER JOIN Boats ON Boats.bid=Voyages.bid WHERE Boats.color='{s_color}'")
+
+
 def views(bp):
     @bp.route("/sailors")
     def _get_all_sailors():
@@ -52,6 +56,15 @@ def views(bp):
             s_date = request.form['date']
             with get_db() as conn:
                 rows = dates_who(conn, s_date)
+            return render_template("table.html", rows=rows, name="Sailors")
+
+
+    @bp.route("/sailors/who-sailed-on-boat-of-color", methods = ["POST"])
+    def _datainput4():
+        if request.method == "POST":
+            s_color = request.form['color']
+            with get_db() as conn:
+                rows = colors_who(conn, s_color)
             return render_template("table.html", rows=rows, name="Sailors")
 
 
