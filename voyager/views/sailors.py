@@ -24,6 +24,8 @@ def dates_who(conn, s_date):
 def colors_who(conn, s_color):
     return execute(conn, f"SELECT s.sid, s.name FROM Sailors AS s INNER JOIN Voyages ON s.sid=Voyages.sid INNER JOIN Boats ON Boats.bid=Voyages.bid WHERE Boats.color='{s_color}'")
 
+def popularity(conn):
+    return execute(conn, f"SELECT b.name, COUNT(*) AS total_reservations FROM Boats AS b, Voyages WHERE b.bid=Voyages.bid GROUP BY Voyages.bid ORDER BY count(*) DESC")
 
 def views(bp):
     @bp.route("/sailors")
@@ -67,4 +69,8 @@ def views(bp):
                 rows = colors_who(conn, s_color)
             return render_template("table.html", rows=rows, name="Sailors")
 
-
+    @bp.route("/boats/by-popularity", methods = ["GET", "POST"])
+    def _datainput5():
+        with get_db() as conn:
+            rows = popularity(conn)
+        return render_template("table.html", name="boats", rows=rows)
