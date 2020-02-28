@@ -5,9 +5,37 @@
   <body>
     <h1>Operations</h1>
     <ol>
-      <li><a href="/sailors/add">add a sailor</a></li>
-      <li><a href="/boats/add">add a boat</a></li>
-      <li><a href="/voyages/add">add a voyage</a></li>
+      <li>
+        <form action="sailors/add" method=POST>
+          <label>name</label>
+          <input name = "add-sailor-name"/>
+          <label>age</label>
+          <input name = "add-sailor-age"/>
+          <label>experience</label>
+          <input name = "add-sailor-experience"/>
+          <input type=submit value = "Add New Sailor"/>
+        </form>
+      </li>
+      <li>
+        <form action="boats/add" method=POST>
+          <label>name</label>
+          <input name = "add-boat-name"/>
+          <label>color</label>
+          <input name = "add-boat-color"/>
+          <input type=submit value = "Add New Boat"/>
+        </form>
+      </li>
+      <li>
+        <form action="voyages/add" method=POST>
+          <label>sid</label>
+          <input name = "add-voyage-sid"/>
+          <label>bid</label>
+          <input name = "add-voyage-bid"/>
+          <label>date_of_voyage</label>
+          <input name = "add-voyage-date"/>
+          <input type=submit value = "Add New Voyage"/>
+        </form>
+      </li>
     </ol>
     <h1>Views</h1>
     <ol>
